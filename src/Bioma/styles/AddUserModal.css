@@ -1,0 +1,12 @@
+.saveUser Button {
+  background: green;
+  color: white;
+  width: 150px;
+  height: 50px;
+  font-size: 18px;
+}
+.saveUser Button:hover {
+  color: green;
+  border: 1px solid green;
+  background: white;
+}/*# sourceMappingURL=AddUserModal.css.map */

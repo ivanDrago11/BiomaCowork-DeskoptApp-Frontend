@@ -1,0 +1,41 @@
+
+.tableButtons {
+    width: 90%;
+    height: 90%;
+    align-items: center;
+    justify-items: center;
+    grid-area: zonaTop;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "search    addUser";
+
+    .inputSearch {
+        grid-area: search;
+        justify-self: start;
+        align-self: flex-end;
+        margin-bottom: -15px;
+        height: 50px;
+        width: 300px; 
+    }
+
+    .addUser {
+        justify-self: end;
+        align-self: flex-end;
+        margin-right: 15%;
+        margin-bottom: -15px;
+        grid-area: addUser;
+        background: green;
+        color: white;
+        width: 200px;
+        height: 50px;
+        font-size: 18px;
+        
+
+        &:hover {
+            color: green;
+            border: 1px solid green;
+        }
+    }
+    
+}

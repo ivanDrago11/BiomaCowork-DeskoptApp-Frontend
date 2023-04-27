@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  height: 720px;
+  background: white;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 17% repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  grid-template-areas: "logo       zonaTop" "menus      zona" "menus      zona" "menus      zona";
+}/*# sourceMappingURL=Estructura.css.map */

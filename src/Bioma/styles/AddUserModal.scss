@@ -1,0 +1,27 @@
+
+.saveUser {
+
+    // alignItems: center;
+    // justify-content: center;
+
+    Button {
+    // justify-self: center;
+    // align-self: center;
+    // margin-right: 15%;
+    // margin-bottom: 10px;
+    // grid-area: addUser;
+    background: green;
+    color: white;
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+
+    &:hover {
+        color: green;
+        border: 1px solid green;
+        background: white;
+    }
+    }
+    
+}
+
