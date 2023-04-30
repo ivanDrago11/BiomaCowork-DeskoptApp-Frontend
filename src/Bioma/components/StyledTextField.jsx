@@ -2,8 +2,8 @@
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
-export const StyledTextField = () => {
-
+export const StyledTextField = (props) => {
+    const {label} = props;
     const CssTextField = styled(TextField)({
         '& label.Mui-focused': {
           color: 'green',
@@ -26,7 +26,7 @@ export const StyledTextField = () => {
 
   return (
 
-    <CssTextField label="Nombre de Usuario" id="custom-css-outlined-input" className='inputSearch' />
+    <CssTextField label={label} id="custom-css-outlined-input" className='inputSearch' />
   
     )
 

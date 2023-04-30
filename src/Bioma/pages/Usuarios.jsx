@@ -1,5 +1,5 @@
 import '../styles/Estructura.css'
-import { BiomaLogo, MenuBioma, TableButtons, EnhancedTable } from '..' 
+import { BiomaLogo, MenuBioma, TableButtonsUsers, MaterialTableUsers } from '..' 
 
 export const Usuarios = () => {
 
@@ -7,8 +7,8 @@ export const Usuarios = () => {
       <div className="container">
           <BiomaLogo/>
           <MenuBioma/>
-          <TableButtons/>
-          <EnhancedTable/>
+          <TableButtonsUsers/>
+          <MaterialTableUsers/>
       </div>
   );
 };

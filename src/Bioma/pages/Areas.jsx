@@ -1,16 +1,14 @@
 import '../styles/Estructura.css'
-import { BiomaLogo, MenuBioma, TableButtons, EnhancedTable } from '..' 
+import { BiomaLogo, MenuBioma, TableButtonsAreas, MaterialTableAreas } from '..' 
+
 export const Areas = () => {
 
   return (
-      <div 
-      className="container"
-      
-      >
+      <div className="container">
           <BiomaLogo/>
           <MenuBioma/>
-          <TableButtons/>
-          <EnhancedTable/>
+          <TableButtonsAreas/>
+          <MaterialTableAreas/>
       </div>
   );
 };

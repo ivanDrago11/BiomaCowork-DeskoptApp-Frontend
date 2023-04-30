@@ -1,0 +1,24 @@
+.uploadContainer .imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed green;
+  height: 150px;
+  width: 500px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.uploadContainer .uploaded-row {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 5px;
+  background-color: rgba(0, 128, 0, 0.226);
+}
+.uploadContainer .upload-content {
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=UploaderInput.css.map */

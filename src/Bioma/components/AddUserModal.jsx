@@ -24,14 +24,14 @@ import {boxStyle, ModalTextField} from '../styles/AddUserModalStyles';
 import { useUserStore } from '../../hooks/useUserStore';
 import { useUiStore } from '../../hooks/useUiStore';
 
-export function AddUserModal() {
-
+export function AddUserModal(props) {
+  const {buttonLabel} = props;
   const {users,startSavingUser,startLoadingUser, changeIsEditing, isEditing, activeUser} = useUserStore();
-  const { isDateModalOpen, closeDateModal, openDateModal } = useUiStore();
+  const { isUserModalOpen, closeUserModal, openUserModal } = useUiStore();
 
 
   const onCloseModal = () => {
-    closeDateModal();
+    closeUserModal();
   }
   const onOpenModal = () => {
     setFormValues({
@@ -42,7 +42,7 @@ export function AddUserModal() {
       direccion: ''
     });
     changeIsEditing(false);
-    openDateModal();
+    openUserModal();
   }
 
   const [formValues, setFormValues] = useState({
@@ -92,11 +92,11 @@ const onInputChanged = ({ target }) => {
 
   return (
     <>
-      <Button onClick={onOpenModal} variant='outlined' className='addUser'>Añadir Usuario</Button>
+      <Button onClick={onOpenModal} variant='outlined' className='addUser'>AÑADIR USUARIO</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={isDateModalOpen}
+        open={isUserModalOpen}
         onClose={onCloseModal}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
@@ -106,7 +106,7 @@ const onInputChanged = ({ target }) => {
           },
         }}
       >
-        <Fade in={isDateModalOpen}>
+        <Fade in={isUserModalOpen}>
           <Box sx={boxStyle}>
               <Typography sx={{background: 'white', color: 'green', p: "2px 50px", borderRadius: 1, border: "green solid 3px" }} id="transition-modal-title" variant="h6" component="h2">
                    {isEditing 

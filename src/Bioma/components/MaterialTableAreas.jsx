@@ -23,9 +23,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 //
 import { useEffect } from 'react';
-import {useUserStore,} from '../../hooks/useUserStore'
-import '../styles/MaterialTable.css'
+import { useAreaStore } from '../../hooks/useAreaStore';
 import { useUiStore } from '../../hooks/useUiStore';
+import { motion } from 'framer-motion';
+import '../styles/MaterialTable.css'
 
 
 function descendingComparator(a, b, orderBy) {
@@ -68,35 +69,35 @@ const headCells = [
     label: 'Nombre',
   },
   {
-    id: 'direccion',
+    id: 'description',
     numeric: false,
     disablePadding: true,
-    label: 'Dirección',
+    label: 'Descripcion',
   },
   {
-    id: 'tel',
+    id: 'amenities',
     numeric: false,
     disablePadding: true,
-    label: 'Telefono',
+    label: 'Amenidades',
   },
   {
-    id: 'email',
+    id: 'pricePerHour',
     numeric: false,
     disablePadding: true,
-    label: 'Correo Electronico',
+    label: 'Precio/Hr',
   },
   {
-    id: 'password',
+    id: 'capacity',
     numeric: false,
     disablePadding: true,
-    label: 'Contraseña',
+    label: 'Capacidad',
   },
-  // {
-  //   id: 'protein',
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: 'Protein (g)',
-  // },
+  {
+    id: 'image',
+    numeric: false,
+    disablePadding: false,
+    label: 'Imagen',
+  },
 ];
 
 const DEFAULT_ORDER = 'asc';
@@ -158,6 +159,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
+  
 };
 
 function EnhancedTableToolbar(props) {
@@ -190,7 +192,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-              Usuarios
+          Areas
         </Typography>
       )}
 
@@ -224,54 +226,54 @@ EnhancedTableToolbar.propTypes = {
   onIconDelete: PropTypes.func.isRequired,
 };
 
-export function EnhancedTable() {
+export function MaterialTableAreas() {
   const [order, setOrder] = React.useState(DEFAULT_ORDER);
   const [orderBy, setOrderBy] = React.useState(DEFAULT_ORDER_BY);
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
+  const [tablePage, setTablePage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [userId , setUserId] = React.useState(0);
+  const [areaId , setAreaId] = React.useState(0);
   const [visibleRows, setVisibleRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_ROWS_PER_PAGE);
   const [paddingHeight, setPaddingHeight] = React.useState(0);
   const [deleteClick, setDeleteClick] = React.useState(false);
   
-  const { users, startLoadingUser, changeIsEditing, loadUser, startDeletingUser} = useUserStore();
-  const { isDateModalOpen, closeDateModal, openDateModal } = useUiStore();
+  const { areas, startLoadingAreas, changeIsEditing, loadArea, startDeletingArea} = useAreaStore();
+  const { isAreaModalOpen, closeAreaModal, openAreaModal, page } = useUiStore();
 
 
   const onCloseModal = () => {
-    closeDateModal();
-    console.log(isDateModalOpen);
+    closeAreaModal();
   }
   const onOpenEditModal = (id) => {
-    const usuario = users.find((element) => element.id === id);
+    const area = areas.find((element) => element.id === id);
     changeIsEditing(true);
-    loadUser(usuario);  
-    openDateModal();
+    loadArea(area);  
+    openAreaModal();
   }
 
   const onDeleteButton = async (id) => {
-    const user = users.find((element) => element.id === id);
-    const usuarioIndex = users.findIndex((element) => element.id === id);
-    const usuario = {...user}
+    const area = areas.find((element) => element.id === id);
+    const areaIndex = areas.findIndex((element) => element.id === id);
+    const areaDelete = {...area}
     setVisibleRows([]);
     setSelected([]);
-    await startDeletingUser(usuario,usuarioIndex); 
+    await startDeletingArea(areaDelete,areaIndex); 
     deleteClick ? setDeleteClick(false) : setDeleteClick(true);
   }
 
   useEffect(() => {
   
-    handleChangePage(undefined, page, users);
+    handleChangePage(undefined, tablePage, areas);
     console.log('Se renderizo');
-    console.log(users);
-  },[users]);
+    console.log(areas);
+
+  },[areas]);
 
 
   useEffect(() => {
       const fetchData = async () =>{
-        const result = startLoadingUser();
+        const result = startLoadingAreas();
         result.then(value => {  
       let rowsOnMount = stableSort(
       value,
@@ -282,8 +284,9 @@ export function EnhancedTable() {
       0 * DEFAULT_ROWS_PER_PAGE,
       0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
     );
-   
+    
     setVisibleRows(rowsOnMount);
+    // changeInformation(page,setInformationTable);
         });
       }
       fetchData();
@@ -298,20 +301,20 @@ export function EnhancedTable() {
       setOrder(toggledOrder);
       setOrderBy(newOrderBy);
 
-      const sortedRows = stableSort(users, getComparator(toggledOrder, newOrderBy));
+      const sortedRows = stableSort(areas, getComparator(toggledOrder, newOrderBy));
       const updatedRows = sortedRows.slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
+        tablePage * rowsPerPage,
+        tablePage * rowsPerPage + rowsPerPage,
       );
 
       setVisibleRows(updatedRows);
     },
-    [order, orderBy, page, rowsPerPage],
+    [order, orderBy, tablePage, rowsPerPage],
   );
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = users.map((n) => n.name);
+      const newSelected = areas.map((n) => n.name);
       setSelected(newSelected);
       return;
     }
@@ -325,18 +328,18 @@ export function EnhancedTable() {
     if (selectedIndex === -1) {
       newSelected.push(id);
       setSelected(newSelected);
-      setUserId(id);
+      setAreaId(id);
       }
     else if(selectedIndex === 0){
       setSelected([]);
-      setUserId(0);
+      setAreaId(0);
       }
   };
   
 
   const handleChangePage = React.useCallback(
     (event, newPage, rows) => {
-      setPage(newPage);
+      setTablePage(newPage);
 
       const sortedRows = stableSort(rows, getComparator(order, orderBy));
       const updatedRows = sortedRows.slice(
@@ -363,7 +366,6 @@ export function EnhancedTable() {
       const updatedRowsPerPage = parseInt(event.target.value, 10);
       setRowsPerPage(updatedRowsPerPage);
 
-
       const sortedRows = stableSort(rows, getComparator(order, orderBy));
       const updatedRows = sortedRows.slice(
         0 * updatedRowsPerPage,
@@ -385,10 +387,20 @@ export function EnhancedTable() {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   return (
-    <div className='zonaTable'>
+    <motion.div 
+    className='zonaTable'
+    initial={{y: 500}}
+    animate={{y: 0}}
+    exit={{y: 5, transition: {duration: 0.1}}}
+    >
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} onIconEdit={() => onOpenEditModal(userId)} onIconDelete={() => onDeleteButton(userId)} />
+        <EnhancedTableToolbar 
+            numSelected={selected.length} 
+            onIconEdit={() => onOpenEditModal(areaId)} 
+            onIconDelete={() => onDeleteButton(areaId)} 
+            
+          />
         <TableContainer>
           <Table 
             sx={{ minWidth: 750 }}
@@ -401,7 +413,8 @@ export function EnhancedTable() {
               orderBy={orderBy}
               // onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={users.length}
+              rowCount={areas.length}
+             
             />
             <TableBody>
               {visibleRows
@@ -418,7 +431,8 @@ export function EnhancedTable() {
                         tabIndex={-1}
                         key={row.name}
                         selected={isItemSelected}
-                        sx={{ cursor: 'pointer' }}
+                        sx={{ cursor: 'pointer'}}
+
                       >
                         {/* <TableCell padding="checkbox">
                           <Checkbox
@@ -439,10 +453,11 @@ export function EnhancedTable() {
                         </TableCell> */}
                         
                         <TableCell align="center" id={labelId} >{row.name}</TableCell>
-                        <TableCell align="center" >{row.direccion}</TableCell>
-                        <TableCell align="center" >{row.telefono}</TableCell>
-                        <TableCell align="center" >{row.email}</TableCell>
-                        <TableCell align="center" >{row.password}</TableCell>
+                        <TableCell align="center" >{row.description}</TableCell>
+                        <TableCell align="center" >{row.amenities}</TableCell>
+                        <TableCell align="center" >{row.pricePerHour}</TableCell>
+                        <TableCell align="center" >{row.capacity}</TableCell>
+                        <TableCell align="center" ><img src={row.image} alt="areaImage" style={{width: 80, height: 80}} /></TableCell> 
                       </TableRow>
                     );
                   })
@@ -463,11 +478,11 @@ export function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={users.length}
+          count={areas.length}
           rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={ (event,page) => handleChangePage(event, page, users) }
-          onRowsPerPageChange={ (event) => handleChangeRowsPerPage(event, users) }
+          page={tablePage}
+          onPageChange={ (event,tablePage) => handleChangePage(event, tablePage, areas) }
+          onRowsPerPageChange={ (event) => handleChangeRowsPerPage(event, areas) }
         />
       </Paper>
       <FormControlLabel
@@ -475,7 +490,7 @@ export function EnhancedTable() {
         label="Dense padding"
       />
     </Box>
-    </div>
+    </motion.div>
     
   );
 }
