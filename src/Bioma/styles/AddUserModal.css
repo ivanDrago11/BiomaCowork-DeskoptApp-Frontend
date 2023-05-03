@@ -10,6 +10,9 @@
   border: 1px solid green;
   background: white;
 }
+.saveUser .deleteUser {
+  background: red;
+}
 
 .datePicker {
   border: "green solid 3px";

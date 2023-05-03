@@ -87,12 +87,12 @@ const headCells = [
     disablePadding: true,
     label: 'Correo Electronico',
   },
-  {
-    id: 'password',
-    numeric: false,
-    disablePadding: true,
-    label: 'Contraseña',
-  },
+  // {
+  //   id: 'password',
+  //   numeric: false,
+  //   disablePadding: true,
+  //   label: 'Contraseña',
+  // },
   // {
   //   id: 'protein',
   //   numeric: true,
@@ -268,8 +268,8 @@ export function MaterialTableUsers() {
   useEffect(() => {
   
     handleChangePage(undefined, tablePage, users);
-    console.log('Se renderizo');
-    console.log(users);
+    // console.log('Se renderizo');
+    // console.log(users);
 
   },[users]);
 
@@ -455,11 +455,11 @@ export function MaterialTableUsers() {
                           {row.name}
                         </TableCell> */}
                         
-                        <TableCell align="center" id={labelId} >{row.name}</TableCell>
+                        <TableCell align="center" id={labelId} sx={{padding: '35px'}} >{row.name}</TableCell>
                         <TableCell align="center" >{row.direccion}</TableCell>
                         <TableCell align="center" >{row.telefono}</TableCell>
                         <TableCell align="center" >{row.email}</TableCell>
-                        <TableCell align="center" >{row.password}</TableCell>
+                        {/* <TableCell align="center" >********</TableCell> */}
                       </TableRow>
                     );
                   })
@@ -487,10 +487,10 @@ export function MaterialTableUsers() {
           onRowsPerPageChange={ (event) => handleChangeRowsPerPage(event, users) }
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </Box>
     </motion.div>
     

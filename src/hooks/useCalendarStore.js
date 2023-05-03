@@ -2,21 +2,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import  biomaApi  from '../api/biomaApi';
 import { convertEventsToDateEvents } from '../helpers';
-import { onAddNewEvent, onDeleteEvent, onLoadEvents, onSetActiveEvent, onUpdateEvent } from '../store/calendar/calendarSlice';
+import { onAddNewEvent, onDeleteRes, onLoadEvents, onSetActiveRes, onIsEditing } from '../store/calendar/calendarSlice';
 
 
 export const useCalendarStore = () => {
   
     const dispatch = useDispatch();
-    const { reservas, activeEvent } = useSelector( state => state.calendar );
+    const { reservas, activeRes, isEditing } = useSelector( state => state.calendar );
     // const { user } = useSelector( state => state.auth );
 
-    const setActiveEvent = ( calendarEvent ) => {
-        dispatch( onSetActiveEvent( calendarEvent ) )
+    const setActiveRes = ( calendarEvent ) => {
+        dispatch( onSetActiveRes( calendarEvent ) )
     }
 
     const startSavingReserva = async( reserva ) => {
-        
+        if(!isEditing){
         try {
             // if( calendarEvent.id ) {
             //     // Actualizando
@@ -32,31 +32,42 @@ export const useCalendarStore = () => {
         } catch (error) {
             console.log(error.response.data);
             Swal.fire('Error al guardar', error.response.data.msg, 'error');
-        }
+        }}else{
+            console.log('editando')
+            try{
+              const result = await biomaApi.put('/reservas', reserva);
+            //   dispatch( onUpdateUser(user) );
+              console.log(result);
+            } catch (error) {
+              console.log(error.response.data);
+            }
+          }
 
        
         
     }
 
-    const startDeletingEvent = async() => {
-        // Todo: Llegar al backend
-        try {
-            await biomaApi.delete(`/reservas/${ activeEvent.id }` );
-            dispatch( onDeleteEvent() );
-        } catch (error) {
-            console.log(error);
-            Swal.fire('Error al eliminar', error.response.data.msg, 'error');
-        }
-
-    }
+    const startDeletingReserva = async (reserva, index) => {
+        console.log(reserva)
+        console.log(index)
+          try{
+            const result = await biomaApi.delete('/reservas', { data: { reserva } });
+            dispatch(onDeleteRes(index));
+            console.log(result);
+          } catch (error) {
+            console.log(error.response.data);
+          }
+      } 
 
 
     const startLoadingReservas = async() => {
         try {
             
             const { data } = await biomaApi.get('/reservas');
-            const events = convertEventsToDateEvents( data.eventos );
-            dispatch( onLoadEvents( events ) );
+            console.log(data)
+            const reservas = convertEventsToDateEvents( data.reservas );
+            console.log(reservas)
+            dispatch( onLoadEvents( reservas ) );
 
 
         } catch (error) {
@@ -64,19 +75,25 @@ export const useCalendarStore = () => {
           console.log(error)
         }
     }
+
+    const changeIsEditing = (value) => {
+        dispatch( onIsEditing(value) );
+    }
     
 
 
     return {
         //* Propiedades
-        activeEvent,
+        activeRes,
         reservas,
-        hasEventSelected: !!activeEvent,
+        isEditing,
+        hasEventSelected: !!activeRes,
 
         //* Métodos
-        setActiveEvent,
-        startDeletingEvent,
+        setActiveRes,
+        startDeletingReserva,
         startLoadingReservas,
         startSavingReserva,
+        changeIsEditing
     }
 }

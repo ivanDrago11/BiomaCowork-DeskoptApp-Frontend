@@ -1,7 +1,10 @@
 
 .logo {
-    justify-self: center;
-    align-self: center;
+    // justify-self: center;
+    // align-self: center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
     width: 100%;
     height: 100%;
     grid-area: logo;
@@ -11,7 +14,7 @@
 
         img{
             display: block;
-            width: 110px;
+            width: 140px;
             background: none;
             margin: 5px 40px;            
         }

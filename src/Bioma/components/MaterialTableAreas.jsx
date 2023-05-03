@@ -231,7 +231,7 @@ export function MaterialTableAreas() {
   const [orderBy, setOrderBy] = React.useState(DEFAULT_ORDER_BY);
   const [selected, setSelected] = React.useState([]);
   const [tablePage, setTablePage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [areaId , setAreaId] = React.useState(0);
   const [visibleRows, setVisibleRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_ROWS_PER_PAGE);
@@ -265,8 +265,8 @@ export function MaterialTableAreas() {
   useEffect(() => {
   
     handleChangePage(undefined, tablePage, areas);
-    console.log('Se renderizo');
-    console.log(areas);
+    // console.log('Se renderizo');
+    // console.log(areas);
 
   },[areas]);
 
@@ -485,10 +485,10 @@ export function MaterialTableAreas() {
           onRowsPerPageChange={ (event) => handleChangeRowsPerPage(event, areas) }
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </Box>
     </motion.div>
     

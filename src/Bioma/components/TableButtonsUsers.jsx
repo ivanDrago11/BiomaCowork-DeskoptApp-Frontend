@@ -24,7 +24,7 @@ export const TableButtonsUsers = () => {
           animate={{y: 0}}
           exit={{y: 5, transition: {duration: 0.1}}}
       >            
-          <StyledTextField label={information.inputLabel}/>
+          {/* <StyledTextField label={information.inputLabel}/> */}
           <AddUserModal/>
       </motion.div>
   )

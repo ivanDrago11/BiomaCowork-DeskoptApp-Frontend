@@ -26,7 +26,6 @@ import { useUiStore } from '../../hooks/useUiStore';
 export function AddAreaModal() {
   const {areas,startSavingArea,startLoadingAreas, changeIsEditing, isEditing, activeArea} = useAreaStore();
   const { isAreaModalOpen, closeAreaModal, openAreaModal } = useUiStore();
-
   const onCloseModal = () => {
     closeAreaModal();
   }
@@ -80,14 +79,15 @@ useEffect(() => {
         image: activeArea.image,
       });
   }
-  console.log("Se renderizo")
+  // console.log("Se renderizo")
 },[activeArea, isEditing])
 
 const onInputChanged = ({ target }) => {
   setFormValues({
       ...formValues,
       [target.name]: target.value
-  })
+  });
+
 }
 
   return (
@@ -118,7 +118,8 @@ const onInputChanged = ({ target }) => {
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <HomeWorkIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
                   <ModalTextField id="input-with-sx" label="Nombre del Area" value={formValues.name || ''} 
-                  variant="standard" onChange={ onInputChanged } name='name'/>
+                  variant="standard" onChange={ onInputChanged } name='name' required />
+                  
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
                   <DescriptionIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
@@ -131,20 +132,22 @@ const onInputChanged = ({ target }) => {
                       value={formValues.description}
                       name='description'
                       onChange={ onInputChanged }
+                      required
+          
                   />
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
                   <CoffeeIcon sx={{ color: 'green', mr: 0, my: 0.5 }} />
                   {/* <ModalTextField id="input-with-sx" label="Amenidades" variant="standard" value={formValues.telefono || ''} onChange={ onInputChanged } name='telefono'/> */}
-                   <MaterialSelect label='Amenidades' values={formValues.amenities || []} form={{formValues,setFormValues}} />
+                   <MaterialSelect label='Amenidades' values={formValues.amenities || []} form={{formValues,setFormValues}} required/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 0 }}>
                   <AttachMoneyIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Precio por hora" variant="standard" value={formValues.pricePerHour || ''} onChange={ onInputChanged } name='pricePerHour'/>
+                  <ModalTextField required id="input-with-sx" label="Precio por hora" type='number' variant="standard" value={formValues.pricePerHour || ''} onChange={ onInputChanged } name='pricePerHour'/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <PeopleIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Capacidad" variant="standard" value={formValues.capacity || ''} onChange={ onInputChanged } name='capacity'/>
+                  <ModalTextField required id="input-with-sx" label="Capacidad" variant="standard" type='number' value={formValues.capacity || ''} onChange={ onInputChanged } name='capacity'/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', mt: 4 }}>
 

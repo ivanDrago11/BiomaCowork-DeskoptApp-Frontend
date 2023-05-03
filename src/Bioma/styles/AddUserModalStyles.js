@@ -10,11 +10,11 @@ export const boxStyle = {
     width: 600,
     bgcolor: 'background.paper',
     border: '3px solid green',
-    "border-radius": "10px", 
+    borderRadius: "10px", 
     boxShadow: 24,
     p: 4,
     display:"flex",
-    "flex-direction": 'column', 
+    flexDirection: 'column', 
     "justifyContent":"center",
     "alignItems":"center"
   };
@@ -38,7 +38,7 @@ export const boxStyle = {
         borderColor: 'green',
       },
     },
-    width: 450
+    width: 450,
   });  
 
  

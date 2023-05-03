@@ -3,6 +3,7 @@ import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../styles/CalendarPage.css'
 import { motion } from 'framer-motion';
+import { Button } from '@mui/material';
 
 import {  CalendarEvent, CalendarModal, FabAddNew, FabDelete} from '..';
 // Navbar
@@ -14,8 +15,8 @@ import { useUiStore, useCalendarStore,  } from '../../hooks';
 export const CalendarPage = () => {
 
   // const { user } = useAuthStore();
-  const { openDateModal } = useUiStore();
-  const { reservas, setActiveEvent, startLoadingReservas } = useCalendarStore();
+  const { openResModal } = useUiStore();
+  const { reservas, setActiveRes, startLoadingReservas, changeIsEditing } = useCalendarStore();
 
   const [ lastView, setLastView ] = useState(localStorage.getItem('lastView') || 'week' );
 
@@ -37,13 +38,15 @@ export const CalendarPage = () => {
   }
 
   const onDoubleClick = ( event ) => {
-    console.log('click');
-    openDateModal();
+    console.log(event);
+    changeIsEditing(true);
+    openResModal();
   }
 
   const onSelect = ( event ) => {
     // console.log({ click: event });
-    setActiveEvent( event );
+    setActiveRes( event );
+    console.log(event)
   }
 
   const onViewChanged = ( event ) => {
@@ -54,7 +57,6 @@ export const CalendarPage = () => {
 
   useEffect(() => {
     startLoadingReservas();
-    console.log(reservas);
   }, [])
   
 
@@ -89,9 +91,7 @@ export const CalendarPage = () => {
 
       {/* <CalendarModal /> */}
       
-      <FabAddNew />
-      <FabDelete />
-
+   
 
     </motion.div>
   )

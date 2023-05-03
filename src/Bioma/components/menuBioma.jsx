@@ -18,7 +18,7 @@ export const MenuBioma = () => {
         <div><Link to="/users" onClick={() => changePage('users')}  ><FaUsers  style={ style } className='icon' size={35}/>Usuarios</Link></div>
         <div><Link to="/areas" onClick={() => changePage('areas')}  ><FaChalkboardTeacher style={ style } className='icon'    size={35} /> Áreas         </Link></div>
         <div><Link to="/reservas" onClick={() => changePage('reservas')}  > <BsFillCalendarDateFill style={ style } className='icon' size={35} /> Reservas      </Link></div>
-        <div><Link to="/pruebas"  > <AiTwotoneTool style={ style }          size={35} /> Configuración </Link></div>
+        <div><Link   > <AiTwotoneTool style={ style }          size={35} /> Configuración </Link></div>
         <div><a href="#"  > <AiOutlineCloseCircle style={ style }   size={40} /> Cerrar Sesión </a></div>       
     </div>
   )

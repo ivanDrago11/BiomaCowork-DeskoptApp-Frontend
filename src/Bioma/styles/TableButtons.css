@@ -13,7 +13,6 @@
   grid-area: search;
   justify-self: start;
   align-self: flex-end;
-  margin-bottom: -15px;
   height: 50px;
   width: 300px;
 }
@@ -21,7 +20,6 @@
   justify-self: end;
   align-self: flex-end;
   margin-right: 15%;
-  margin-bottom: -15px;
   grid-area: addUser;
   background: green;
   color: white;

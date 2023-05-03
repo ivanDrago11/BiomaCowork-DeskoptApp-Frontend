@@ -1,8 +1,11 @@
 
 
 .zonaTable {
-    justify-self: center;
-    width: 95%;
+    // justify-self: center;
+    // align-self: center;
+    // display: flex;
+    align-items: center;
+    width: 90%;
     height: 90%;
     grid-area: zona;
     background: white;

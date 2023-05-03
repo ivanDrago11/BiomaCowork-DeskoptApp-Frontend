@@ -7,7 +7,7 @@ export const uiSlice = createSlice({
         isDateModalOpen: false,
         isUserModalOpen: false,
         isAreaModalOpen: false,
-        isReservaModalOpen: false,
+        isResModalOpen: false,
         page: 'users',
         dataUI: []
     },
@@ -30,11 +30,11 @@ export const uiSlice = createSlice({
         onCloseAreaModal: ( state ) => {
             state.isAreaModalOpen = false;
         },
-        onOpenReservaModal: ( state ) => {
-            state.isReservaModalOpen = true;
+        onOpenResModal: ( state ) => {
+            state.isResModalOpen = true;
         },
-        onCloseReservaModal: ( state ) => {
-            state.isReservaModalOpen = false;
+        onCloseResModal: ( state ) => {
+            state.isResModalOpen = false;
         },
         onChangePage: (state, {payload}) =>{
             state.page = payload;
@@ -55,8 +55,8 @@ export const {
     onCloseAreaModal, 
     onOpenUserModal, 
     onCloseUserModal, 
-    onOpenReservaModal, 
-    onCloseReservaModal, 
+    onOpenResModal, 
+    onCloseResModal, 
     onChangePage, 
     onChangeDataUI } = uiSlice.actions;
 

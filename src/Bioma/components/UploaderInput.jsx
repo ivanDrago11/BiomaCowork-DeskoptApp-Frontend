@@ -32,7 +32,7 @@ function ImageUploader(props) {
             <div className="imageContainer" 
             onClick={() => document.querySelector('.input-field').click()}
             >
-               <input type="file" accept="image/*" className="input-field" hidden 
+               <input required type="file" accept="image/*" className="input-field" hidden 
                onChange={({ target: {files}}) => {
                  files[0] && setFileName(files[0].name)
                  if(files[0] !== undefined ){

@@ -21,15 +21,16 @@ export const calendarSlice = createSlice({
         reservas: [
             // tempEvent
         ],
-        activeEvent: null
+        activeRes: null,
+        isEditing: false
     },
     reducers: {
-        onSetActiveEvent: ( state, { payload }) => {
-            state.activeEvent = payload;
+        onSetActiveRes: ( state, { payload }) => {
+            state.activeRes = payload;
         },
         onAddNewEvent: ( state, { payload }) => {
             state.reservas.push( payload );
-            state.activeEvent = null;
+            state.activeRes = null;
         },
         onUpdateEvent: ( state, { payload } ) => {
             state.reservas = state.reservas.map( event => {
@@ -40,21 +41,24 @@ export const calendarSlice = createSlice({
                 return event;
             });
         },
-        onDeleteEvent: ( state ) => {
-            if ( state.activeEvent ) {
-                state.reservas = state.reservas.filter( event => event.id !== state.activeEvent.id );
-                state.activeEvent = null;
-            }
+
+        onDeleteRes: ( state, {payload} ) => {
+            state.reservas.splice(payload,1);
         },
+        
         onLoadEvents: (state, { payload = [] }) => {
             state.isLoadingEvents = false;
             // state.reservas = payload;
             state.reservas = payload;
         },
+
+        onIsEditing: (state, { payload }) => {
+            state.isEditing = payload;
+        },
         // onLogoutCalendar: ( state ) => {
         //     // state.isLoadingEvents = true,
         //     state.reservas      = []
-        //     state.activeEvent = null
+        //     state.activeRes = null
         // }
     }
 });
@@ -63,9 +67,10 @@ export const calendarSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
     onAddNewEvent,
-    onDeleteEvent,
+    onDeleteRes,
     onLoadEvents,
     onLogoutCalendar,
-    onSetActiveEvent,
+    onSetActiveRes,
     onUpdateEvent,
+    onIsEditing
 } = calendarSlice.actions;

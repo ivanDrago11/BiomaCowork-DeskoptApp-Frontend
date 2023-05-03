@@ -5,8 +5,8 @@ import {onOpenDateModal,
         onOpenUserModal, 
         onOpenAreaModal, 
         onCloseAreaModal, 
-        onOpenReservaModal, 
-        onCloseReservaModal, 
+        onOpenResModal, 
+        onCloseResModal, 
         onChangePage, 
         onChangeDataUI,  } from '../store/ui/uiSlice';
 
@@ -15,7 +15,7 @@ export const useUiStore = () => {
 
     const dispatch = useDispatch();
 
-    const {isDateModalOpen, isUserModalOpen, isAreaModalOpen, isReservaModalOpen, page, dataUI } = useSelector( state => state.ui );
+    const {isDateModalOpen, isUserModalOpen, isAreaModalOpen, isResModalOpen, page, dataUI } = useSelector( state => state.ui );
 
     const openDateModal = () => {
         dispatch( onOpenDateModal() )
@@ -56,23 +56,23 @@ export const useUiStore = () => {
             ? openAreaModal()
             : closeAreaModal();
     }
-    const openReservaModal = () => {
-        dispatch( onOpenReservaModal() )
+    const openResModal = () => {
+        dispatch( onOpenResModal() )
     }
 
-    const closeReservaModal = () => {
-        dispatch( onCloseReservaModal() )
+    const closeResModal = () => {
+        dispatch( onCloseResModal() )
     }
 
     const toggleReservaModal = () => {
         (isUserModalOpen)
-            ? openReservaModal()
-            : closeReservaModal();
+            ? openResModal()
+            : closeResModal();
     }
 
     const changePage = (newPage) => {
         dispatch( onChangePage(newPage));
-        console.log(newPage);
+        // console.log(newPage);
     }
 
     const changeDataUI = (data) => {
@@ -86,7 +86,7 @@ export const useUiStore = () => {
         //* Propiedades
         isDateModalOpen,
         isUserModalOpen,
-        isReservaModalOpen,
+        isResModalOpen,
         isAreaModalOpen,
         dataUI,
         //* Métodos
@@ -96,8 +96,8 @@ export const useUiStore = () => {
         openUserModal,
         closeAreaModal,
         openAreaModal,
-        closeReservaModal,
-        openReservaModal,
+        closeResModal,
+        openResModal,
         toggleUserModal,
         changePage,
         changeDataUI,

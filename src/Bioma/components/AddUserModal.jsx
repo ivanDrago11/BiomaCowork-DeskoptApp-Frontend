@@ -80,7 +80,7 @@ useEffect(() => {
         direccion: activeUser.direccion
       });
   }
-  console.log("Se renderizo")
+  // console.log("Se renderizo")
 },[activeUser, isEditing])
 
 const onInputChanged = ({ target }) => {
@@ -117,27 +117,28 @@ const onInputChanged = ({ target }) => {
             <form onSubmit={onSubmit}>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <AccountCircle sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Nombre Completo" value={formValues.name || ''} 
-                  variant="standard" onChange={ onInputChanged } name='name'/>
+                  <ModalTextField 
+                  id="input-with-sx" label="Nombre Completo" value={formValues.name || ''} 
+                  variant="standard" onChange={ onInputChanged } name='name' required inputProps={{minLength: '5'}}/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <HomeIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Dirección" variant="standard" value={formValues.direccion || ''} onChange={ onInputChanged } name='direccion'/>
+                  <ModalTextField id="input-with-sx" label="Dirección" required variant="standard" value={formValues.direccion || ''} onChange={ onInputChanged } name='direccion' inputProps={{minLength: '5'}}/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <PhoneIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Telefono" variant="standard" value={formValues.telefono || ''} onChange={ onInputChanged } name='telefono'/>
+                  <ModalTextField id="input-with-sx" label="Telefono" min type='number' required variant="standard" value={formValues.telefono || ''} onChange={ onInputChanged } name='telefono' inputProps={{minLength: '10', maxLength: '10'}}/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <AlternateEmailIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Correo Electronico" variant="standard" value={formValues.email || ''} onChange={ onInputChanged } name='email'/>
+                  <ModalTextField id="input-with-sx" label="Correo Electronico" required variant="standard" value={formValues.email || ''} onChange={ onInputChanged } name='email' inputProps={{minLength: '5'}}/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <HttpsIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Contraseña" variant="standard" value={formValues.password || ''} onChange={ onInputChanged } name='password'/>
+                  <ModalTextField id="input-with-sx" label="Contraseña" required type='password' variant="standard" value={formValues.password || ''} onChange={ onInputChanged } name='password' inputProps={{minLength: '5'}}/>
               </Box>
               <Box sx={{mt: 4, width: 450}}>
-              <FormControl>
+              <FormControl required>
                 <Box sx={{display: "flex", alignItems: "center"}}>
                   <SupervisedUserCircleIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
                   <FormLabel sx={{fontSize: 17, mt:.5}} color='success' id="demo-row-radio-buttons-group-label">Tipo de Usuario</FormLabel>
@@ -145,10 +146,11 @@ const onInputChanged = ({ target }) => {
               <RadioGroup
                   row
                   aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
+                  name="tipo"
+                  onChange={onInputChanged}
                 >
-                  <FormControlLabel value="Administrador" control={<Radio color='success' />} label="Administrador" />
-                  <FormControlLabel value="Cliente" control={<Radio color='success' />} label="Cliente" />
+                  <FormControlLabel value="Administrador" control={<Radio color='success' required />} label="Administrador" />
+                  <FormControlLabel value="Cliente" control={<Radio color='success' required />} label="Cliente"  />
                   
                 </RadioGroup>
                 </FormControl>

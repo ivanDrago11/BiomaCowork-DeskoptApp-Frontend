@@ -1,6 +1,6 @@
 .zonaTable {
-  justify-self: center;
-  width: 95%;
+  align-items: center;
+  width: 90%;
   height: 90%;
   grid-area: zona;
   background: white;
