@@ -45,7 +45,7 @@ function ImageUploader(props) {
                 ? <img src={image} width={150} height={150} alt={fileName}/>
                 :  <>
                    <CloudUploadIcon fontSize="large" color="success"/>
-                   <Typography variant="h6">Browse Files to Upload</Typography>
+                   <Typography variant="h6">Buscar imagen a subir</Typography>
                    </>
                 }
             </div>

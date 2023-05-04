@@ -8,6 +8,7 @@ import BiomaLogo from '../components/BiomaLogo';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginStore } from '../../hooks/useLoginStore';
+import { motion } from 'framer-motion';
 const FormItem = Form.Item;
 
 
@@ -38,7 +39,10 @@ const onSubmit = async () => {
   //  navigate('/users');
 }
     return (
-        <div>
+        <motion.div
+        initial={{x: 2000, transition: {duration: .1}}}
+        animate={{x: 0}}
+        exit={{x: 5, transition: {duration: .1}}}>
        <BiomaLogo/>
         <div className={"lContainer"}>
         <div className="lItem">
@@ -88,7 +92,7 @@ const onSubmit = async () => {
           <a href="" target="_blank" rel="noopener noreferrer" className="footerLink">Powered by React</a>
         </div> */}
         </div>
-        </div>
+        </motion.div>
       );
     }
 

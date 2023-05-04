@@ -125,9 +125,11 @@ useEffect(() => {
         id: activeRes.id,
       });
   }
-  const area = areas.find(element => element.name == formValues.area);
-  console.log(area)
-  setAreaObject(area);
+  if(activeRes != null){
+    const area = areas.find(element => element.name == activeRes.area);
+    console.log(area)
+    setAreaObject(area);
+  }
 
   // console.log("Se renderizo")
 },[activeRes, isEditing])

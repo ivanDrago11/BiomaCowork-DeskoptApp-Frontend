@@ -21,6 +21,9 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
 //
 import { useEffect } from 'react';
 import { useAreaStore } from '../../hooks/useAreaStore';
@@ -237,6 +240,7 @@ export function MaterialTableAreas() {
   const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_ROWS_PER_PAGE);
   const [paddingHeight, setPaddingHeight] = React.useState(0);
   const [deleteClick, setDeleteClick] = React.useState(false);
+  const [isLoadingArea, setIsLoadingArea] = React.useState(false);
   
   const { areas, startLoadingAreas, changeIsEditing, loadArea, startDeletingArea} = useAreaStore();
   const { isAreaModalOpen, closeAreaModal, openAreaModal, page } = useUiStore();
@@ -272,6 +276,7 @@ export function MaterialTableAreas() {
 
 
   useEffect(() => {
+      setIsLoadingArea(true);
       const fetchData = async () =>{
         const result = startLoadingAreas();
         result.then(value => {  
@@ -287,6 +292,7 @@ export function MaterialTableAreas() {
     
     setVisibleRows(rowsOnMount);
     // changeInformation(page,setInformationTable);
+    setIsLoadingArea(false);
         });
       }
       fetchData();
@@ -393,7 +399,18 @@ export function MaterialTableAreas() {
     animate={{y: 0}}
     exit={{y: 5, transition: {duration: 0.1}}}
     >
-    <Box sx={{ width: '100%' }}>
+    {/* {console.log(isLoadingArea)} */}
+    {visibleRows.length == 0 
+    ?     <Stack sx={{ width: '100%',mt: 30, color: 'grey.500' }} spacing={2}>
+              <LinearProgress color="inherit" />
+              <LinearProgress color="success" />
+              <LinearProgress color="inherit" />
+              <LinearProgress color="success" />
+              <LinearProgress color="inherit" />
+          </Stack>
+     
+     
+    : <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar 
             numSelected={selected.length} 
@@ -458,7 +475,7 @@ export function MaterialTableAreas() {
                         <TableCell align="center" >{row.pricePerHour}</TableCell>
                         <TableCell align="center" >{row.capacity}</TableCell>
                         <TableCell align="center" ><img src={row.image} alt="areaImage" style={{width: 80, height: 80}} /></TableCell> 
-                        {console.log(row.image)}
+                       
                       </TableRow>
                     );
                   })
@@ -491,6 +508,8 @@ export function MaterialTableAreas() {
         label="Dense padding"
       /> */}
     </Box>
+    } 
+    {/* //////////////////////////sfgaf */}
     </motion.div>
     
   );

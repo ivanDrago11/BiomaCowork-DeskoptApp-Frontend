@@ -7,18 +7,20 @@ export const useAreaStore = () => {
 
     let areasArray = [];
     const dispatch = useDispatch(); 
-    const  {areas, isEditing, activeArea}  = useSelector(state => state.area);
+    const  {areas, isEditing, activeArea, isLoadingAreas}  = useSelector(state => state.area);
 
     const startLoadingAreas = async () => {
         try {
           const { data } = await biomaApi.get('/areas');
+          // onIsLoadingAreas(true);
           const arrayAreas = createArrayAreas(data.areas);
           dispatch( onLoadAreas(arrayAreas));
           return arrayAreas; 
         } catch (error) {
-            console.log(error.response.data); 
+          console.log(error.response.data); 
         }
-    }
+        // onIsLoadingAreas(false);
+      }
 
     const startSavingArea = async (area) => {
       if(!isEditing){
@@ -81,6 +83,7 @@ export const useAreaStore = () => {
         loadArea,
         isEditing,
         areas,
-        activeArea
+        activeArea,
+        isLoadingAreas
     }
 }

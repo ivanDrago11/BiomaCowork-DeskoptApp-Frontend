@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const areaSlice = createSlice({
     name: 'area',
     initialState: {
-        isLoadingUsers: true,
         areas: [],
         activeArea: {},
         isEditing: false,
@@ -38,7 +37,7 @@ export const areaSlice = createSlice({
         },
         onLoadArea: (state, { payload }) => {
             state.activeArea = payload;
-        }
+        },
         
     }
 });
@@ -51,5 +50,5 @@ export const {
     onLoadAreas,
     onUpdateArea,
     onLoadArea,
-    onIsEditing
+    onIsEditing,
 } = areaSlice.actions;
