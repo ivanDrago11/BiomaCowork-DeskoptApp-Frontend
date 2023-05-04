@@ -131,11 +131,11 @@ const onInputChanged = ({ target }) => {
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <AlternateEmailIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Correo Electronico" required variant="standard" value={formValues.email || ''} onChange={ onInputChanged } name='email' inputProps={{minLength: '5'}}/>
+                  <ModalTextField id="input-with-sx" label="Correo Electronico" required type='email' variant="standard" value={formValues.email || ''} onChange={ onInputChanged } name='email' inputProps={{minLength: '5'}}/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
                   <HttpsIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Contraseña" required type='password' variant="standard" value={formValues.password || ''} onChange={ onInputChanged } name='password' inputProps={{minLength: '5'}}/>
+                  <ModalTextField id="input-with-sx" label="Contraseña" required variant="standard" value={formValues.password || ''} onChange={ onInputChanged } name='password' inputProps={{minLength: '5'}}/>
               </Box>
               <Box sx={{mt: 4, width: 450}}>
               <FormControl required>

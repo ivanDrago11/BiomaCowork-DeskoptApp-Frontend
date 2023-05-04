@@ -38,7 +38,7 @@ export const CalendarPage = () => {
   }
 
   const onDoubleClick = ( event ) => {
-    console.log(event);
+    // console.log(event);
     changeIsEditing(true);
     openResModal();
   }

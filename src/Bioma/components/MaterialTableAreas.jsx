@@ -458,6 +458,7 @@ export function MaterialTableAreas() {
                         <TableCell align="center" >{row.pricePerHour}</TableCell>
                         <TableCell align="center" >{row.capacity}</TableCell>
                         <TableCell align="center" ><img src={row.image} alt="areaImage" style={{width: 80, height: 80}} /></TableCell> 
+                        {console.log(row.image)}
                       </TableRow>
                     );
                   })

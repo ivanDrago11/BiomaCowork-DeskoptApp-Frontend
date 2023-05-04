@@ -17,3 +17,4 @@ export * from "./components/CalendarModal";
 export * from "./pages/Usuarios"
 export * from "./pages/Areas"
 export * from "./pages/Reservas"
+export * from "./pages/Login"

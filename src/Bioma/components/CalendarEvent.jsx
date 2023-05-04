@@ -10,7 +10,7 @@ export const CalendarEvent = ({ event }) => {
             <br />
             <strong>{ usuario }</strong>
             <br />
-            <strong>{ price }</strong>
+            <strong>{'$'+price }</strong>
             {/* <span> - { user.name }</span> */}
         </>
     )
