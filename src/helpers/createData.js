@@ -1,19 +1,20 @@
 let array = [];
 
-function createDataUsuarios(name, direccion, telefono, email, password, id) {
+function createDataUsuarios(name, direccion, telefono, email, password, id, acceso) {
     return {
       name,
       direccion,
       telefono,
       email,
       password,
-      id
+      id,
+      acceso
     };
   }
 
 export function createArrayUsuarios(data = [], array = []){
     data.forEach((element) => {
-        array.push(createDataUsuarios(element.name, element.direccion, element.telefono, element.email, element.password, element.id));
+        array.push(createDataUsuarios(element.name, element.direccion, element.telefono, element.email, element.password, element.id, element.acceso));
     });
     return array;
 }

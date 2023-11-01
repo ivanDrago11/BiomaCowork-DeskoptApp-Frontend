@@ -9,6 +9,7 @@ import axios from 'axios';
 
 
 const biomaApi = axios.create({
+    // baseURL: 'https://safe-shore-92527.herokuapp.com/api'
     baseURL: 'http://localhost:4000/api'
 });
 

@@ -48,7 +48,7 @@ export function AddResModal() {
   }
   const onOpenModal = () => {
     setFormValues({
-      area: '',
+      area: null,
       usuario: '',
       start: dayjs(),
       end: dayjs().add(1,'hour'),
@@ -60,7 +60,7 @@ export function AddResModal() {
   }
 
   const [formValues, setFormValues] = useState({
-    area: '',
+    area: null,
     usuario: '',
     start: '',
     end: '',
@@ -68,44 +68,22 @@ export function AddResModal() {
     codigoQR: ''
   });
 
-  function reservaProcess(){
-    const horas = dayjs(formValues.end).diff(formValues.start, 'hour', true);
-    console.log('Horas reservadas: '+ horas);
-    const area = areas.find(element => element.name == formValues.area);
-    const price = Math.round(area.pricePerHour * horas);
-    console.log(price)
-    const codigoQR = formValues.end + formValues.start + formValues.usuario + formValues.price;
-    return {
-      price,
-      codigoQR
-    }
-  }
+
 
 
   const onSubmit = async( event ) => {
-    // reservaProcess();
     event.preventDefault();
-    // setFormSubmitted(true);
-    
-    const reserva =  formValues;
-
-    // const reservaId = activeRes.id;
-    // const reserva = {...editReserva,id: reservaId};
-    // console.log(reserva) 
+    const area = areas.find(element => element.name == formValues.area);
+    const reserva =  {...formValues, price: area.pricePerHour};
     await startSavingReserva( reserva );
     await startLoadingReservas();
     onCloseModal();
-    // closeDateModal();
-    // setFormSubmitted(false);
-    console.log(formValues)
 }
 
 const onDeleteButton = async () => {
   const reserva = reservas.find((element) => element.id === activeRes.id);
-  console.log(reserva)
   const reservaIndex = reservas.findIndex((element) => element.id === activeRes.id);
   const reservaDelete = {...reserva}
-  console.log(reservaDelete)
   await startDeletingReserva(reservaDelete,reservaIndex); 
   onCloseModal();
 }
@@ -127,26 +105,23 @@ useEffect(() => {
   }
   if(activeRes != null){
     const area = areas.find(element => element.name == activeRes.area);
-    console.log(area)
     setAreaObject(area);
   }
-
-  // console.log("Se renderizo")
 },[activeRes, isEditing])
 
 const onInputChanged = ({ target }) => {
   setFormValues({
       ...formValues,
       [target.name]: target.value
-  })
+  });
 }
 
 const onDateChanged = ( event, changing ) => {
-  const {price, codigoQR} = reservaProcess();
+  // const {price, codigoQR} = reservaProcess();
     setFormValues({
         ...formValues,
-        [changing]: event,
-        price,codigoQR
+        [changing]: event
+        // ,price,codigoQR
         
     });
 }
@@ -184,7 +159,6 @@ const handleChange = (event) => {
             <form onSubmit={onSubmit}>
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 5 }}>
                   <AttachMoneyIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  {/* <ModalTextField id="input-with-sx" label="Nombre del Area" variant="standard" value={formValues.area || ''} onChange={ onInputChanged } name='area'/> */}
                   <FormControl sx={{width: '500px'}}>
                     <InputLabel id="demo-simple-select-label">Area</InputLabel>
                     <Select
@@ -194,19 +168,16 @@ const handleChange = (event) => {
                       label="Area"
                       onChange={onInputChanged}
                       name='area'
+                      required
                     >
                       {areas.map((value) => 
                          <MenuItem key={value.name} value={value.name}>{value.name}</MenuItem>
                       )}
-                      {/* <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem> */}
                     </Select>
                   </FormControl>
               </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 5 }}>
                   <AttachMoneyIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  {/* <ModalTextField id="input-with-sx" label="Nombre del Area" variant="standard" value={formValues.area || ''} onChange={ onInputChanged } name='area'/> */}
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Usuario</InputLabel>
                     <Select
@@ -216,33 +187,14 @@ const handleChange = (event) => {
                       label="Usuario"
                       onChange={onInputChanged}
                       name='usuario'
+                      required
                     >
                       {users.map((value) => 
                          <MenuItem key={value.name} value={value.name}>{value.name}</MenuItem>
                       )}
-                      {/* <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem> */}
                     </Select>
                   </FormControl>
               </Box>
-            
-              {/* <Box sx={{ display: 'flex', alignItems: 'flex-end', mt: 2 }}>
-                  <AttachMoneyIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <ModalTextField id="input-with-sx" label="Precio" variant="standard" value={formValues.price || ''} onChange={ onInputChanged } name='price'/>
-              </Box> */}
-              {/* <Box sx={{ display: 'flex', alignItems: 'center', mt: 0 }}>
-                  <EventIcon sx={{ color: 'green', mr: 1, my: 0.5 }} />
-                  <DatePicker 
-                  selected={ formValues.start }
-                  onChange={ (event) => onDateChanged(event, 'start') }
-                  id='datePicker'
-                  dateFormat="Pp"
-                  showTimeSelect
-                  locale="es"
-                  timeCaption="Hora"
-                  />
-                </Box> */}
                 <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, ml: 4 }}>
                      <Typography variant='h6'>Fecha y Hora INICIO</Typography>
                   </Box>
@@ -257,6 +209,7 @@ const handleChange = (event) => {
                     maxDate={dayjs().add(1,'month')}
                     minTime={dayjs().hour(8)}
                     maxTime={dayjs().hour(20)}
+                    
                     
                     />
               </Box>
@@ -275,6 +228,8 @@ const handleChange = (event) => {
                     maxTime={dayjs().hour(21)}
                     minDate={dayjs(formValues.start)}
                     maxDate={dayjs(formValues.start)}
+                    
+                  
            
                     />
                 </Box>

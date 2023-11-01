@@ -12,6 +12,7 @@ export const useUserStore = () => {
     const startLoadingUser = async () => {
         try {
           const { data } = await biomaApi.get('/users');
+          console.log(data.usuarios)
           const arrayUsuarios = createArrayUsuarios(data.usuarios);
           dispatch( onLoadUsers(arrayUsuarios));
           return arrayUsuarios; 

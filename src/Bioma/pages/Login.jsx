@@ -8,12 +8,14 @@ import BiomaLogo from '../components/BiomaLogo';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginStore } from '../../hooks/useLoginStore';
+
 import { motion } from 'framer-motion';
 const FormItem = Form.Item;
 
 
 export default function Login() {
 const { startLogin, isAuth } = useLoginStore();
+
 
     const [formValues, setFormValues] = useState({
         email: '',
@@ -36,14 +38,14 @@ const onSubmit = async () => {
     console.log('Login Incorrecto');
    }
    
-  //  navigate('/users');
 }
+
     return (
         <motion.div
         initial={{x: 2000, transition: {duration: .1}}}
         animate={{x: 0}}
         exit={{x: 5, transition: {duration: .1}}}>
-       <BiomaLogo/>
+       <BiomaLogo style={{width: 280, marginBottom: -100, marginTop: 50}}/>
         <div className={"lContainer"}>
         <div className="lItem">
             <div className="loginImage">
@@ -81,6 +83,7 @@ const onSubmit = async () => {
                     type="primary"
                     htmlType="submit"
                     className="login-form-button"
+                    style={{background: 'green'}}
                   >
                     Iniciar Sesión
                   </Button>

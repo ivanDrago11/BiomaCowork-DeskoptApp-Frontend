@@ -28,14 +28,17 @@ export const useCalendarStore = () => {
             // Creando
             const { data } = await biomaApi.post('/reservas', reserva );
             // dispatch( onAddNewEvent({ ...calendarEvent, id: data.evento.id, user }) );
-            console.log(data);
+            console.log('data: '+data);
+            Swal.fire('Reservado', 'La reserva fue realizada con exito', 'success');
         } catch (error) {
             console.log(error.response.data);
             Swal.fire('Error al guardar', error.response.data.msg, 'error');
+            
         }}else{
             console.log('editando')
             try{
               const result = await biomaApi.put('/reservas', reserva);
+              Swal.fire({icon: 'success', title:'Actualizado', text: 'La reserva fue actualizada con Exito', iconColor: 'blue' });
             //   dispatch( onUpdateUser(user) );
               console.log(result);
             } catch (error) {
@@ -53,6 +56,7 @@ export const useCalendarStore = () => {
           try{
             const result = await biomaApi.delete('/reservas', { data: { reserva } });
             dispatch(onDeleteRes(index));
+            Swal.fire({icon: 'success', title:'Eliminada', text: 'La reserva fue eliminada con Exito', iconColor: 'red' });
             console.log(result);
           } catch (error) {
             console.log(error.response.data);
